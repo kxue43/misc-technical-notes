@@ -11,3 +11,4 @@ Miscellaneous Technical Notes
    :caption: Contents:
 
    ssh_tunnel
+   nvidia_drivers
