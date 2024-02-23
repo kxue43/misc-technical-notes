@@ -55,7 +55,8 @@ This will build the ``nvidia`` kernal module for the OS, via the :program:`nvidi
 
 Finally, restart the system to load the new driver.
 
-.. _disable_secure_boot:
+
+.. _wayland_or_x11:
 
 Wayland or X11
 -----------------
@@ -70,6 +71,8 @@ to the Wayland and NVIDIA combination. For example, *VS Code doesn't work well i
 On GNOME desktops, without additional steps, X11 is used as the Windowing System after NVIDIA drivers are installed,
 and we don't get the Wayland option at the login screen. Follow *all* the steps in `here <NVIDIA Wayland_>`_ to enable
 the Wayland option.
+
+.. _disable_secure_boot:
 
 Disable Secure Boot
 ---------------------
