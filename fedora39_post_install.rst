@@ -73,6 +73,14 @@ The following solves the cannot-wake-from-suspension issue (`NVIDIA official doc
 :menuselection:`Settings -->About --> System Details` should show something like "NVIDIA GeForce GTX 1050",
 which means proprietary driver is in use. Waking up from suspension also works, for both Wayland and X11.
 
+.. warning:: NVIDIA driver is a custom built kernel module even if it can be installed via RPM packages on Fedora or
+     APT packages on Debian. Custom built kernel modules only work with `a specific kernel version`_, so they have to
+     be built again every time the kernel is upgraded. Maybe this rebuilt is done properly by the distro via its
+     package manager after kernel upgrade, or maybe not. Since we have the fallback NVIDIA driver ``nouveau`` blacklisted
+     on both Debian (automatically) and Fedora (manually), it might happen that display is not working after a kernel
+     upgrade. In this case, we should try :kbd:`Ctr` + :kbd:`Alt` + :kbd:`F1` / :kbd:`F2` to enter a terminal session
+     with the otherwise functioning OS and simply rebuilding the kernel via CLI.
+
 Install Software
 --------------------
 
@@ -228,3 +236,4 @@ with either graphics card.
 .. _different initrd schemas: https://en.wikipedia.org/wiki/Initial_ramdisk#Mount_preparations
 .. _tainted kernel: https://unix.stackexchange.com/questions/118116/what-is-a-tainted-linux-kernel
 .. _NVIDIA drivers finished compilation: https://discussion.fedoraproject.org/t/nvidia-gpu-kernel-module-problem-after-latest-updates/75590/10
+.. _a specific kernel version: https://discussion.fedoraproject.org/t/nvidia-gpu-kernel-module-problem-after-latest-updates/75590/7
