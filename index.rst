@@ -13,3 +13,4 @@ Miscellaneous Technical Notes
    ssh_tunnel
    nvidia_drivers
    vscode_wayland
+   fedora39_post_install

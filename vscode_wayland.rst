@@ -50,6 +50,8 @@ itself and cannot be pinned to deck.
 
 The command above can be made into an alias in :file:`.zshrc`.
 
+.. _configure_chrome:
+
 Configuring Chrome to Run in Wayland Native
 -----------------------------------------------
 
