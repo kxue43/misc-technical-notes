@@ -48,7 +48,8 @@ Electron/Chromium, as the stdout messages suggest.
 As a side effect, this causes some glitches for the VS Code icon in the deck --- it's a different icon from the app
 itself and cannot be pinned to deck.
 
-The command above can be made into an alias in :file:`.zshrc`.
+In ArchLinux, there is a way to use the flags by putting them in a config file. On Debian that approach doesn't seem
+to exist, so we put the command above as an alias for :program:`code` in :file:`.zshrc`.
 
 .. _configure_chrome:
 

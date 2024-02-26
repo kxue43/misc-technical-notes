@@ -101,4 +101,24 @@ Configure Chrome
 
 Do the same this as in :ref:`configure_chrome`.
 
+Configure Dual Boot
+----------------------
+
+If Fedora 39 was installed after Debian 12, Fedora's bootloader lists Debian, but not the other way around.
+To add Fedora to Debian's bootloader, do the following on Debian.
+
+* Edit :file:`/etc/default/grub`. Uncomment the line with the following content::
+
+     #GRUB_DISABLE_OS_PROBER=false
+
+* Run the following command.
+
+  .. code-block:: 
+
+     $ sudo update-grub
+   
+  Output should include a line like "Found Fedora Linux 39 (Workstation Edition) on /dev/sda4".
+
+* Change boot sequence in BIOS setting. Move Debian in front of Fedora.
+
 .. _NVIDIA official doc: https://rpmfusion.org/Howto/NVIDIA#Suspend
