@@ -129,6 +129,8 @@ When dual booting Fedora 39 from the Debian 12 GRUB, the Wireless adapter driver
 NVIDIA drivers somehow couldn't be detected. Fedora is still able to boot, but reverts to using ``nouveau``
 as the graphics card driver. We can blacklist the ``ath9k`` and ``nouveau`` kernel modules to deal with this.
 
+.. tip:: ``nouveau`` is automatically blacklisted after installing NVIDIA proprietary drivers on Debian.
+
 To find the kernel module corresponding to the Wireless adapter:
 
 .. code-block:: bash
@@ -158,6 +160,7 @@ Then run the following to regenerate `initramfs`_.
    $ sudo dracut -f
 
 .. warning:: :program:`dracut` is NOT the default tool to create initramfs on Debian.
+     Checkout `Debian blacklisting kernel modules <debian_blacklisting_>`_ for how to do that on Debian.
 
 After reboot, use the following command to verify that the two modules have been blacklisted.
 
@@ -168,3 +171,4 @@ After reboot, use the following command to verify that the two modules have been
 .. _NVIDIA official doc: https://rpmfusion.org/Howto/NVIDIA#Suspend
 .. _reference: https://linuxconfig.org/how-to-manage-efi-boot-manager-entries-on-linux
 .. _initramfs: https://en.wikipedia.org/wiki/Initial_ramdisk
+.. _debian_blacklisting: https://wiki.debian.org/KernelModuleBlacklisting
