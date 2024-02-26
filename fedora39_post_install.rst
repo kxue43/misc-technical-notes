@@ -119,6 +119,52 @@ To add Fedora to Debian's bootloader, do the following on Debian.
    
   Output should include a line like "Found Fedora Linux 39 (Workstation Edition) on /dev/sda4".
 
-* Change boot sequence in BIOS setting. Move Debian in front of Fedora.
+* Change boot sequence in BIOS setting. Move Debian in front of Fedora. Or :command:`sudo dnf install efibootmgr` and
+  use :program:`efibootmgr` to do the same thing (`reference`_).
+
+Blacklisting kernel modules
+---------------------------------
+
+When dual booting Fedora 39 from the Debian 12 GRUB, the Wireless adapter driver ``ath9k`` reports error and 
+NVIDIA drivers somehow couldn't be detected. Fedora is still able to boot, but reverts to using ``nouveau``
+as the graphics card driver. We can blacklist the ``ath9k`` and ``nouveau`` kernel modules to deal with this.
+
+To find the kernel module corresponding to the Wireless adapter:
+
+.. code-block:: bash
+
+   $ lspci -k
+
+To blacklist the ``ath9k`` kernel module, create a file :file:`/etc/modprobe.d/ath9k-blacklist.conf` as root and put
+the following contents in it:
+
+.. code-block:: 
+
+   # There is something wrong with this driver for Wireless adapter.
+   # It causes problem when Fedora is booted from Debian's GRUB.
+   blacklist ath9k
+
+To blacklist ``nouveau``, create the file :file:`/etc/modprobe.d/nouveau-blacklist.conf` with the following content:
+
+.. code-block:: 
+
+   # Try blacklisting nouveau to see if it solves the NVIDIA issue.
+   blacklist nouveau
+
+Then run the following to regenerate `initramfs`_.
+
+.. code-block:: bash
+
+   $ sudo dracut -f
+
+.. warning:: :program:`dracut` is NOT the default tool to create initramfs on Debian.
+
+After reboot, use the following command to verify that the two modules have been blacklisted.
+
+.. code-block:: bash
+
+   $ modprobe --showconfig | grep blacklist
 
 .. _NVIDIA official doc: https://rpmfusion.org/Howto/NVIDIA#Suspend
+.. _reference: https://linuxconfig.org/how-to-manage-efi-boot-manager-entries-on-linux
+.. _initramfs: https://en.wikipedia.org/wiki/Initial_ramdisk
