@@ -49,7 +49,7 @@ Install NVIDIA Proprietary Drivers
 ----------------------------------------
 
 For a fresh installation, if we go to :menuselection:`Settings -->About --> System Details`, we can see that
-the "Graphics" field shows "NV137", which is the opensource Nouveau driver for NVIDIA cards. This driver doesn't
+the "Graphics" field shows "NV137", which is the opensource ``nouveau`` driver for NVIDIA cards. This driver doesn't
 work well and we need to replace it with NVIDIA proprietary drivers.
 
 The following commands assume that RPM Fusion has been enabled.
@@ -69,9 +69,9 @@ The following solves the cannot-wake-from-suspension issue (`NVIDIA official doc
    $ sudo dnf install xorg-x11-drv-nvidia-power
    $ sudo systemctl enable nvidia-{suspend,resume,hibernate}
 
-Now reboot the system. :menuselection:`Settings -->About --> System Details` should show something like
-"NVIDIA GeForce GTX 1050", which means proprietary driver is in use. Waking up from suspension also works,
-for both Wayland and X11.
+**Wait for at least 5 minutes** and then reboot the system. This is to make sure `NVIDIA drivers finished compilation`_.
+:menuselection:`Settings -->About --> System Details` should show something like "NVIDIA GeForce GTX 1050",
+which means proprietary driver is in use. Waking up from suspension also works, for both Wayland and X11.
 
 Install Software
 --------------------
@@ -105,7 +105,7 @@ Configure Dual Boot
 ----------------------
 
 If Fedora 39 was installed after Debian 12, Fedora's bootloader lists Debian, but not the other way around.
-To add Fedora to Debian's bootloader, do the following on Debian.
+To add Fedora to Debian's bootloader, do the following **on Debian**.
 
 * Edit :file:`/etc/default/grub`. Uncomment the line with the following content::
 
@@ -122,7 +122,7 @@ To add Fedora to Debian's bootloader, do the following on Debian.
 * Change boot sequence in BIOS setting. Move Debian in front of Fedora. Or :command:`sudo dnf install efibootmgr` and
   use :program:`efibootmgr` to do the same thing (`reference`_).
 
-Blacklisting kernel modules
+Blacklist Kernel Modules
 ---------------------------------
 
 When dual booting Fedora 39 from the Debian 12 GRUB, the Wireless adapter driver ``ath9k`` reports error and 
@@ -168,7 +168,49 @@ After reboot, use the following command to verify that the two modules have been
 
    $ modprobe --showconfig | grep blacklist
 
+Comments on Kernal Taints
+----------------------------------
+
+After the operations above, when booting Fedora 39, we still get the following messages on the start-up screen::
+
+   kernel: nvidia: loading out-of-tree module taints kernel.
+   kernel: nvidia: module license 'NVIDIA' taints kernel.
+   kernel: nvidia: module verification failed: signature and/or required key missing - tainting kernel
+   kernel: nvidia: module license taints kernel.
+   kernel: nvidia-nvlink: Nvlink Core is being initialized, major device number 235
+   kernel: nvidia 0000:01:00.0: vgaarb: VGA decodes changed: olddecodes=io+mem,decodes=none:owns=io+mem
+   kernel: nvidia_uvm: module uses symbols nvUvmInterfaceDisableAccessCntr from proprietary module nvidia, inheriting taint.
+   kernel: nvidia-uvm: Loaded the UVM driver, major device number 511.
+   kernel: nvidia-modeset: Loading NVIDIA Kernel Mode Setting Driver for UNIX platforms  545.29.06  Thu Nov 16 01:47:29 UTC 2023
+   kernel: [drm] [nvidia-drm] [GPU ID 0x00000100] Loading driver
+   kernel: [drm] Initialized nvidia-drm 0.0.0 20160202 for 0000:01:00.0 on minor 2
+   kernel: nvidia 0000:01:00.0: vgaarb: deactivate vga console
+   kernel: fbcon: nvidia-drmdrmfb (fb0) is primary device
+   kernel: nvidia 0000:01:00.0: [drm] fb0: nvidia-drmdrmfb frame buffer device
+
+.. tip:: These are the logs form :program:`systemd-journald.service`. They can be viewed by the command:
+
+   .. code-block:: bash
+   
+      $ sudo journalctl -k | grep nvidia
+
+   The ``-k`` option shows kernel messages only. We can :program:`grep` by any regex.
+
+These are just warning messages. The lines starting with "nvidia-modeset" indicates that the NVIDIA driver is working
+properly. Fedora boots more slowly than Debian because they use `different initrd schemas`_.
+
+Messages that contain "taints kernel" means NVIDIA drivers' license and "closed-sourceness" makes it impossible to
+properly troubleshoot some kernel problems, hence "taint". "Out-of-tree" means NVIDIA driver source code is not part of
+Linux kernal source code. "License" is self-explanatory. "Requered key missing" is due to not signing the NVIDIA driver,
+a custom build kernel module, but if Secure Boot is disabled the driver still works. See `tainted kernel`_ for more
+information.
+
+.. note:: If we didn't blacklist ``nouveau``, the kernel taints will cause Fedora to fall back to using it.
+
 .. _NVIDIA official doc: https://rpmfusion.org/Howto/NVIDIA#Suspend
 .. _reference: https://linuxconfig.org/how-to-manage-efi-boot-manager-entries-on-linux
 .. _initramfs: https://en.wikipedia.org/wiki/Initial_ramdisk
 .. _debian_blacklisting: https://wiki.debian.org/KernelModuleBlacklisting
+.. _different initrd schemas: https://en.wikipedia.org/wiki/Initial_ramdisk#Mount_preparations
+.. _tainted kernel: https://unix.stackexchange.com/questions/118116/what-is-a-tainted-linux-kernel
+.. _NVIDIA drivers finished compilation: https://discussion.fedoraproject.org/t/nvidia-gpu-kernel-module-problem-after-latest-updates/75590/10
