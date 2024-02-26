@@ -49,7 +49,7 @@ Install NVIDIA Proprietary Drivers
 ----------------------------------------
 
 For a fresh installation, if we go to :menuselection:`Settings -->About --> System Details`, we can see that
-the "Graphics" field shows "NV137", which is the opensource ``nouveau`` driver for NVIDIA cards. This driver doesn't
+the "Graphics" field shows "NV137", which is the open-source ``nouveau`` driver for NVIDIA cards. This driver doesn't
 work well and we need to replace it with NVIDIA proprietary drivers.
 
 The following commands assume that RPM Fusion has been enabled.
@@ -168,7 +168,7 @@ After reboot, use the following command to verify that the two modules have been
 
    $ modprobe --showconfig | grep blacklist
 
-Comments on Kernal Taints
+Comments on Kernel Taints
 ----------------------------------
 
 After the operations above, when booting Fedora 39, we still get the following messages on the start-up screen::
@@ -201,11 +201,25 @@ properly. Fedora boots more slowly than Debian because they use `different initr
 
 Messages that contain "taints kernel" means NVIDIA drivers' license and "closed-sourceness" makes it impossible to
 properly troubleshoot some kernel problems, hence "taint". "Out-of-tree" means NVIDIA driver source code is not part of
-Linux kernal source code. "License" is self-explanatory. "Requered key missing" is due to not signing the NVIDIA driver,
+Linux kernel source code. "License" is self-explanatory. "Required key missing" is due to not signing the NVIDIA driver,
 a custom build kernel module, but if Secure Boot is disabled the driver still works. See `tainted kernel`_ for more
 information.
 
 .. note:: If we didn't blacklist ``nouveau``, the kernel taints will cause Fedora to fall back to using it.
+
+Comments on Using Dual Monitor
+---------------------------------
+
+On the back of my PC there are four video output connectors: one HDMI from the CPU integrated graphics card; one HDMI,
+one DVI and one DisplayPort from the NVIDIA GeForce GTX 1050 graphics card.
+
+When using two monitors connected to the two HDMI ports, both Debian 12 and Fedora 39 show that the integrated and
+the NVIDIA graphics cards are in use together. To make both monitors use the NVIDIA card only, the solution
+is to plug both to the NVIDIA card --- one via HDMI and one via DVI is OK. Sometimes the solution is not in software
+configurations but in hardware arrangements.
+
+Interestingly, when only one monitor was plugged to the NVIDIA card's HDMI port, both distros were able to display
+with either graphics card.
 
 .. _NVIDIA official doc: https://rpmfusion.org/Howto/NVIDIA#Suspend
 .. _reference: https://linuxconfig.org/how-to-manage-efi-boot-manager-entries-on-linux
