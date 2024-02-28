@@ -11,6 +11,6 @@ Miscellaneous Technical Notes
    :caption: Contents:
 
    ssh_tunnel
-   nvidia_drivers
+   nvidia_drivers_debian
    vscode_wayland
    fedora39_post_install

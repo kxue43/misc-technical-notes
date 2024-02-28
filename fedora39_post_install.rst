@@ -45,6 +45,8 @@ Change Hostname
 
    $ sudo hostnamectl set-hostname fedora-desktop
 
+.. _Fedora_install_nvidia:
+
 Install NVIDIA Proprietary Drivers
 ----------------------------------------
 
@@ -89,6 +91,8 @@ package manager after kernel upgrade, or maybe not. Since we have the fallback N
 on both Debian (automatically) and Fedora (manually), it might happen that display is not working after a kernel
 upgrade. In this case, we should try :kbd:`Ctr` + :kbd:`Alt` + :kbd:`F1` / :kbd:`F2` to enter a terminal session
 with the otherwise functioning OS and simply rebuilding the kernel module via CLI.
+
+.. _Fedora_Akmods:
 
 There are tools that automatically rebuild kernel modules after kernel upgrade, such as `Dynamic Kernel Module Support`_.
 RPM Fusion has a similar tool `Kmods2`_, which enables shipping *precompiled* kernel modules for the latest kernels

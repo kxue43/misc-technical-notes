@@ -27,34 +27,30 @@ to be ``x86_64`` architecture. The graphics card is assumed to be GeForce 600 se
 Install :program:`nvidia-driver`
 ---------------------------------------
 
-The installation process is essentially building and using a custom Linux kernel module by ourselves. (See how
-customizable Linux is!) If the machine uses `Secure Boot`_, we need to either disable it or sign the resulting kernel
+The installation process is essentially building and using a custom Linux kernel module by ourselves.
+If the machine uses `Secure Boot`_, we need to either disable it or sign the resulting kernel
 module by ourselves. Otherwise the GUI desktop environment would not start properly. We can still login from terminal
-by hitting ``Ctr + Alt + F2`` at the black screen with a flashing cursor though.
+by hitting :kbd:`Ctr` + :kbd:`Alt` + :kbd:`F2` at the black screen with a flashing cursor though.
 See :ref:`Disable Secure Boot <disable_secure_boot>` for the process.
 
-Before installing the drivers, we must obtain the proper kernel headers for the NVIDIA driver to build with.
-
-.. code-block:: bash
-
-   $ sudo apt install linux-headers-amd64
-
-Then add the following line to the :file:`/etc/apt/sources.list` file, which adds the "contrib", "non-free" and
+First add the following line to the :file:`/etc/apt/sources.list` file, which adds the "contrib", "non-free" and
 "non-free-firmware" software repositories::
 
    deb http://deb.debian.org/debian/ sid main contrib non-free non-free-firmware
 
-Finally install the :program:`nvidia-driver` package with necessary firmware.
+Then install the :program:`nvidia-driver` package with necessary firmware.
 
 .. code-block:: bash
 
    $ sudo apt update
    $ sudo apt install nvidia-driver firmware-misc-nonfree
 
-This will build the ``nvidia`` kernal module for the OS, via the :program:`nvidia-kernel-dkms` package.
+This will build the ``nvidia`` kernel module for the OS, via the :program:`nvidia-kernel-dkms` package.
 
 Finally, restart the system to load the new driver.
 
+.. note:: Compared to :ref:`Fedora Akmods <Fedora_Akmods>`, Debian uses DKMS instead of its own tooling for
+     building kernel modules.
 
 .. _wayland_or_x11:
 
