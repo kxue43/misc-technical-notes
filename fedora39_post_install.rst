@@ -89,7 +89,7 @@ Custom built kernel modules only work with `a specific kernel version`_, so they
 be built again every time the kernel is upgraded. Maybe this rebuilt is done properly by a distro via its
 package manager after kernel upgrade, or maybe not. Since we have the fallback NVIDIA driver ``nouveau`` blacklisted
 on both Debian (automatically) and Fedora (manually), it might happen that display is not working after a kernel
-upgrade. In this case, we should try :kbd:`Ctr` + :kbd:`Alt` + :kbd:`F1` / :kbd:`F2` to enter a terminal session
+upgrade. In this case, we should try :kbd:`Ctr` + :kbd:`Alt` + :kbd:`F1`/\ :kbd:`F2` to enter a terminal session
 with the otherwise functioning OS and simply rebuilding the kernel module via CLI.
 
 .. _Fedora_Akmods:

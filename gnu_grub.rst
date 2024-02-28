@@ -91,7 +91,7 @@ upgrading kernel version of one distro on a multiboot machine.
 Suppose a machine has dual-boot Debian 12 and Fedora 39, and Debian is the first in the boot sequence, so its bootloader
 is used. After upgrading kernel version on Fedora, the new version is not available in Debian's boot menu, but is
 if switching to using Fedora's own bootloader. This is because Debian's :file:`grub.cfg` file should be updated after the
-kernel upate on the Fedora side. Otherwise it's not aware of the new version without "probing". The other way around
+kernel update on the Fedora side. Otherwise it's not aware of the new version without "probing". The other way around
 is probably also true, unless Fedora does something smarter here.
 
 Update :file:`grub.cfg`
