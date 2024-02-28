@@ -14,3 +14,4 @@ Miscellaneous Technical Notes
    nvidia_drivers_debian
    vscode_wayland
    fedora39_post_install
+   gnu_grub
