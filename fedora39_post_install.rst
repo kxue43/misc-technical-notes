@@ -62,24 +62,41 @@ The following commands assume that RPM Fusion has been enabled.
 
 The above installs the NVIDIA proprietary driver.
 
-The following solves the cannot-wake-from-suspension issue (`NVIDIA official doc`_).
+The following solves the cannot-wake-from-suspension issue (`RPM Fusion HOWTO NVIDIA#Suspend`_).
+Use them only if the problem exists.
 
 .. code-block:: bash
 
    $ sudo dnf install xorg-x11-drv-nvidia-power
    $ sudo systemctl enable nvidia-{suspend,resume,hibernate}
 
-**Wait for at least 5 minutes** and then reboot the system. This is to make sure `NVIDIA drivers finished compilation`_.
-:menuselection:`Settings -->About --> System Details` should show something like "NVIDIA GeForce GTX 1050",
+Use the following command to check if the driver has finished building.
+The command should output the version of the driver such as ``545.29.06`` if yes and
+"modinfo: ERROR: Module nvidia not found" otherwise (`RPM Fusion HOWTO NVIDIA#Install`_).
+The build process usually `takes about five minutes`_.
+
+.. code-block:: bash
+
+   $ modinfo -F version nvidia
+
+After reboot, :menuselection:`Settings -->About --> System Details` should show something like "NVIDIA GeForce GTX 1050",
 which means proprietary driver is in use. Waking up from suspension also works, for both Wayland and X11.
 
-.. warning:: NVIDIA driver is a custom built kernel module even if it can be installed via RPM packages on Fedora or
-     APT packages on Debian. Custom built kernel modules only work with `a specific kernel version`_, so they have to
-     be built again every time the kernel is upgraded. Maybe this rebuilt is done properly by the distro via its
-     package manager after kernel upgrade, or maybe not. Since we have the fallback NVIDIA driver ``nouveau`` blacklisted
-     on both Debian (automatically) and Fedora (manually), it might happen that display is not working after a kernel
-     upgrade. In this case, we should try :kbd:`Ctr` + :kbd:`Alt` + :kbd:`F1` / :kbd:`F2` to enter a terminal session
-     with the otherwise functioning OS and simply rebuilding the kernel via CLI.
+NVIDIA driver is a custom built kernel module.
+Custom built kernel modules only work with `a specific kernel version`_, so they have to
+be built again every time the kernel is upgraded. Maybe this rebuilt is done properly by a distro via its
+package manager after kernel upgrade, or maybe not. Since we have the fallback NVIDIA driver ``nouveau`` blacklisted
+on both Debian (automatically) and Fedora (manually), it might happen that display is not working after a kernel
+upgrade. In this case, we should try :kbd:`Ctr` + :kbd:`Alt` + :kbd:`F1` / :kbd:`F2` to enter a terminal session
+with the otherwise functioning OS and simply rebuilding the kernel module via CLI.
+
+There are tools that automatically rebuild kernel modules after kernel upgrade, such as `Dynamic Kernel Module Support`_.
+RPM Fusion has a similar tool `Kmods2`_, which enables shipping *precompiled* kernel modules for the latest kernels
+released by Fedora as RPM packages. There's also the `Akmods`_ tool that automate the whole process. Therefore, if
+NVIDIA proprietary drivers are installed on Fedora via RPM Fusion (i.e. using the steps above),
+it should continue to work after kernel upgrade
+without users' manual intervention. This is a good reason NOT to install drivers by downloading binaries from vendor
+website directly.
 
 Install Software
 --------------------
@@ -229,11 +246,15 @@ configurations but in hardware arrangements.
 Interestingly, when only one monitor was plugged to the NVIDIA card's HDMI port, both distros were able to display
 with either graphics card.
 
-.. _NVIDIA official doc: https://rpmfusion.org/Howto/NVIDIA#Suspend
 .. _reference: https://linuxconfig.org/how-to-manage-efi-boot-manager-entries-on-linux
 .. _initramfs: https://en.wikipedia.org/wiki/Initial_ramdisk
 .. _debian_blacklisting: https://wiki.debian.org/KernelModuleBlacklisting
 .. _different initrd schemas: https://en.wikipedia.org/wiki/Initial_ramdisk#Mount_preparations
 .. _tainted kernel: https://unix.stackexchange.com/questions/118116/what-is-a-tainted-linux-kernel
-.. _NVIDIA drivers finished compilation: https://discussion.fedoraproject.org/t/nvidia-gpu-kernel-module-problem-after-latest-updates/75590/10
+.. _takes about five minutes: https://discussion.fedoraproject.org/t/nvidia-gpu-kernel-module-problem-after-latest-updates/75590/10
 .. _a specific kernel version: https://discussion.fedoraproject.org/t/nvidia-gpu-kernel-module-problem-after-latest-updates/75590/7
+.. _RPM Fusion HOWTO NVIDIA#Install: https://rpmfusion.org/Howto/NVIDIA#Installing_the_drivers
+.. _RPM Fusion HOWTO NVIDIA#Suspend: https://rpmfusion.org/Howto/NVIDIA#Suspend
+.. _Dynamic Kernel Module Support: https://en.wikipedia.org/wiki/Dynamic_Kernel_Module_Support
+.. _Kmods2: https://rpmfusion.org/Packaging/KernelModules/Kmods2
+.. _Akmods: https://rpmfusion.org/Packaging/KernelModules/Akmods
