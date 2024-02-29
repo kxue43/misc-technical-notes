@@ -15,3 +15,4 @@ Miscellaneous Technical Notes
    vscode_wayland
    fedora39_post_install
    gnu_grub
+   opengl_vulkan
