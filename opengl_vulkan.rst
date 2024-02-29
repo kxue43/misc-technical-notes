@@ -16,5 +16,5 @@ Apple's Metal API and Microsoft's Direct3D 12 are both compatible with Vulkan. O
 
 GTK and QT provide library code for creating GUI widgets, but how these widgets get rendered on the screen probably
 depends on how the code is compiled. It might also be possible to compile the code so that at runtime the program
-probes the OS for available options and choose the right one. Bottomline, both GTK and QT can render
-with OpenGL, maybe Vulkan as well.
+probes the OS for available options and choose the right one. Bottomline, both GTK and QT can render with OpenGL,
+maybe Vulkan as well.
