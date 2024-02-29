@@ -16,3 +16,4 @@ Miscellaneous Technical Notes
    fedora39_post_install
    gnu_grub
    opengl_vulkan
+   gpg_with_github
