@@ -25,7 +25,7 @@ one of multiple operating systems installed on a computer or select a specific k
 on a particular operating system's partitions".
 
 On a PC with dual-boot Debian 12 and Fedora 39, the :file:`/boot/efi` folder is shared by the two systems because
-it mounts the ``sda1`` partition. The rest of the :file:`/boot` folder are on each system's partition, hence diffferent
+it mounts the ``sda1`` partition. The rest of the :file:`/boot` folder are on each system's partition, hence different
 across systems. For example, :command:`sudo ls -l /boot` shows the following on Debian 12::
 
    -rw-r--r-- 1 root root   259453 Feb  1 03:05 config-6.1.0-18-amd64
