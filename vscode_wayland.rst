@@ -65,3 +65,46 @@ This makes Chrome run more smoothly.
 References:
 
 * https://wiki.archlinux.org/title/wayland#Detect_Xwayland_applications_visually
+
+Installing VS Code on Debian
+------------------------------------
+
+VS Code is available as a ``.deb`` package in a Microsoft repository. We need to install the repo and the signing key.
+Then the package :program:`code` can be installed and auto-updated as other packages via :program:`apt`.
+
+Install the repo and the signing key.
+
+.. code-block:: bash
+
+   $ sudo apt-get install wget gpg
+   $ wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+   $ sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+   $ sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+   $ rm -f packages.microsoft.gpg
+
+Install the :program:`code` package.
+
+.. code-block:: bash
+
+   $ sudo apt install apt-transport-https
+   $ sudo apt update
+   $ sudo apt install code # or code-insiders
+
+Installing VS Code on Fedora
+--------------------------------
+
+Similarly, on Fedora we can install an RPM repository and install :program:`code` from the repo.
+
+Install a Microsoft RPM repo.
+
+.. code-block:: bash
+
+   $ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+   $ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+
+Install the :program:`code` package.
+
+.. code-block:: bash
+
+   $ dnf check-update
+   $ sudo dnf install code # or code-insiders
