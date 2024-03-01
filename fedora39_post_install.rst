@@ -107,8 +107,10 @@ Install Software
 
 Create a folder :file:`~/build-rpms` to save the RPM packages from which direct installation was performed.
 
-For VS Code and Google Chrome, download the RPM packages from the official websites and perform
-:command:`sudo dnf install` on them.
+For Google Chrome, download the RPM package from the official website and perform :command:`sudo dnf install` on it.
+Perform :ref:`configure_chrome`.
+
+Follow :ref:`vscode_fedora` to install VS Code.
 
 In Gnome Software, install the RPM version of "Tweaks" and the Flathub version of "Extensions".
 Install "Dash-to-Dock" by:
@@ -124,11 +126,6 @@ In Gnome Software, search "DejaVu Sans Mono" and install the regular and bold fo
 .. code-block:: bash
 
    $ sudo fc-cache -v
-
-Configure Chrome
-------------------
-
-Do the same this as in :ref:`configure_chrome`.
 
 Configure Dual Boot
 ----------------------

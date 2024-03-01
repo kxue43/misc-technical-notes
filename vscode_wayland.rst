@@ -90,6 +90,8 @@ Install the :program:`code` package.
    $ sudo apt update
    $ sudo apt install code # or code-insiders
 
+.. _vscode_fedora:
+
 Installing VS Code on Fedora
 --------------------------------
 
