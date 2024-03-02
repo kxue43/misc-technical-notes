@@ -73,8 +73,9 @@ Use them only if the problem exists.
    $ sudo systemctl enable nvidia-{suspend,resume,hibernate}
 
 Use the following command to check if the driver has finished building.
-The command should output the version of the driver such as ``545.29.06`` if yes and
-"modinfo: ERROR: Module nvidia not found" otherwise (`RPM Fusion HOWTO NVIDIA#Install`_).
+When installing for the first time, the command should output the version of the driver such as ``545.29.06`` if yes and
+"modinfo: ERROR: Module nvidia not found" otherwise (`RPM Fusion HOWTO NVIDIA#Install`_). When upgrading, it should
+output the upgraded version number instead of the existing one.
 The build process usually `takes about five minutes`_.
 
 .. code-block:: bash
