@@ -11,9 +11,14 @@ Miscellaneous Technical Notes
    :caption: Contents:
 
    ssh_tunnel
-   nvidia_drivers_debian
-   vscode_wayland
+   debian12_post_install
    fedora39_post_install
+   wayland_native
    gnu_grub
-   opengl_vulkan
+   linux_graphics
    gpg_with_github
+
+Indices
+------------
+
+* :ref:`search`

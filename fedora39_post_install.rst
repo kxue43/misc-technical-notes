@@ -7,7 +7,7 @@ Fedora 39 Post-installation Steps
 This page covers the necessary steps after installing a fresh Fedora 39 distribution.
 In particular, it deals with the cannot-wake-from-suspension issue caused by NVIDIA drivers.
 
-In the following steps, we assume an initial system update has been performed, either via Terminal or Gnome Software.
+In the following steps, we assume an initial system update has been performed, either via Terminal or GNOME Software.
 
 DNF Configuration
 ---------------------
@@ -106,14 +106,38 @@ website directly.
 Install Software
 --------------------
 
+Google Chrome
+~~~~~~~~~~~~~~
+
 Create a folder :file:`~/build-rpms` to save the RPM packages from which direct installation was performed.
 
-For Google Chrome, download the RPM package from the official website and perform :command:`sudo dnf install` on it.
-Perform :ref:`configure_chrome`.
+Download the RPM package from the official website and perform :command:`sudo dnf install` on it.
 
-Follow :ref:`vscode_fedora` to install VS Code.
+Finally perform :ref:`configure_chrome` to make Chrome run in Wayland native.
 
-In Gnome Software, install the RPM version of "Tweaks" and the Flathub version of "Extensions".
+VS Code
+~~~~~~~~~~~
+
+We install an RPM repository and install :program:`code` from the repo.
+
+Install a Microsoft RPM repo.
+
+.. code-block:: bash
+
+   $ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+   $ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+
+Install the :program:`code` package.
+
+.. code-block:: bash
+
+   $ dnf check-update
+   $ sudo dnf install code # or code-insiders
+
+Dash-to-Dock
+~~~~~~~~~~~~~~~
+
+In GNOME Software, install the RPM version of "Tweaks" and the Flathub version of "Extensions".
 Install "Dash-to-Dock" by:
 
 .. code-block:: bash
@@ -122,7 +146,10 @@ Install "Dash-to-Dock" by:
 
 Open "Extensions" app and configure Dash-to-Dock feature.
 
-In Gnome Software, search "DejaVu Sans Mono" and install the regular and bold fonts. Then run:
+DejaVu Sans Mono Font
+~~~~~~~~~~~~~~~~~~~~~~~
+
+In GNOME Software, search "DejaVu Sans Mono" and install the regular and bold fonts. Then run:
 
 .. code-block:: bash
 

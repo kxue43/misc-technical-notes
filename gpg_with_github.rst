@@ -1,4 +1,4 @@
-Using GPG keys to Sign GitHub Commits
+Use GPG keys to Sign GitHub Commits
 ========================================
 
 .. contents:: Contents:
