@@ -106,15 +106,6 @@ website directly.
 Install Software
 --------------------
 
-Google Chrome
-~~~~~~~~~~~~~~
-
-Create a folder :file:`~/build-rpms` to save the RPM packages from which direct installation was performed.
-
-Download the RPM package from the official website and perform :command:`sudo dnf install` on it.
-
-Finally perform :ref:`configure_chrome` to make Chrome run in Wayland native.
-
 VS Code
 ~~~~~~~~~~~
 

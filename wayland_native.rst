@@ -7,12 +7,12 @@ Run Applications in Wayland Native
 Background
 -------------
 
-Some applications do not start in Wayland native but use Xwayland by default, e.g. VS Code, Chrome, and the Flathub
+Some applications do not start in Wayland native but use Xwayland by default, e.g. VS Code and the Flathub
 version of Thunderbird. Xwayland is an Xorg emulation layer of Wayland. It provides applications access
 to Xorg libraries, allowing programs that only run on Xorg to run on Wayland.
 
 VS Code is an Electron app --- the visual presentation is handled by Electron, which in turn depends on Chromium.
-By default, when running Debian 12 or Fedora 39 with Wayland, both VS Code and Chrome browser use Xwayland instead of
+By default, when running Debian 12 or Fedora 39 with Wayland, VS Code uses Xwayland instead of
 Wayland native. This is probably caused by the underlying Chromium component.
 
 Running VS Code with Xwayland in a Wayland session on a machine with NVIDIA drivers is not the most smooth experience,
@@ -56,23 +56,12 @@ itself and cannot be pinned to dock.
 In ArchLinux, there is a way to use the flags by putting them in a config file. On Debian/Fedora that approach doesn't
 seem to exist, but we can put the command above as an alias for :program:`code` in :file:`.zshrc`.
 
-.. _configure_chrome:
-
-Chrome
--------
-
-* Go to ``chrome://flags`` in Chrome address bar.
-* Find "Preferred Ozone platform" in the menu. Set it to "Wayland".
-* Restart Chrome.
-
-This makes Chrome run more smoothly.
-
 .. _configure_thunderbird:
 
 Flathub Thunderbird
 --------------------
 
-Thunderbird is not built upon Electron so the method for VS Code and Chrome does not apply.
+Thunderbird is not built upon Electron so the method for VS Code does not apply.
 
 To configure the Flathub version of Thunderbird, run the following command.
 

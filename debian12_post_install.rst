@@ -142,21 +142,12 @@ the current stable release of Firefox.
 
 Then install the Flathub version of Firefox in GNOME Software.
 
-Google Chrome
-~~~~~~~~~~~~~~~
-
-Create a folder :file:`~/build-debs` to save the DEB packages from which direct installation was performed.
-
-Download the DEB package from the official website and perform :command:`sudo apt install` on it.
-
-Finally perform :ref:`configure_chrome` to make Chrome run in Wayland native.
-
 Thunderbird
 ~~~~~~~~~~~~~
 
 Install the Flathub version of Thunderbird in GNOME Software.
 
-Perform :ref:`configure_thunderbird` to make Chrome run in Wayland native.
+Perform :ref:`configure_thunderbird` to make Thunderbird run in Wayland native.
 
 Enable backports Repository
 -------------------------------
